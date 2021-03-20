@@ -1,6 +1,6 @@
 # Otrium assessment
 
-Assessment for Otrium. Instead of adding images have working link.
+Assessment for Otrium. Instead of adding images have added a working link.
 [Demo](https://skycodr.github.io/otrium-assessment/index.html)
 
 ## Prerequisites
