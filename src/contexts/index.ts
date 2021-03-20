@@ -1,1 +1,0 @@
-export {default as MenuContextProvider, MenuContext } from './MenuContext';

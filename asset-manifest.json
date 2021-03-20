@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/otrium-assessment/static/js/main.31b43c64.chunk.js",
+    "main.js.map": "/otrium-assessment/static/js/main.31b43c64.chunk.js.map",
+    "runtime-main.js": "/otrium-assessment/static/js/runtime-main.c485b5ab.js",
+    "runtime-main.js.map": "/otrium-assessment/static/js/runtime-main.c485b5ab.js.map",
+    "static/js/2.b669f133.chunk.js": "/otrium-assessment/static/js/2.b669f133.chunk.js",
+    "static/js/2.b669f133.chunk.js.map": "/otrium-assessment/static/js/2.b669f133.chunk.js.map",
+    "static/js/3.55a914e1.chunk.js": "/otrium-assessment/static/js/3.55a914e1.chunk.js",
+    "static/js/3.55a914e1.chunk.js.map": "/otrium-assessment/static/js/3.55a914e1.chunk.js.map",
+    "index.html": "/otrium-assessment/index.html",
+    "static/js/2.b669f133.chunk.js.LICENSE.txt": "/otrium-assessment/static/js/2.b669f133.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c485b5ab.js",
+    "static/js/2.b669f133.chunk.js",
+    "static/js/main.31b43c64.chunk.js"
+  ]
+}
