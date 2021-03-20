@@ -22,8 +22,11 @@ const useTree = <T extends ITreeData>(
    * and descendant nodes with the value and commit changes.
    *
    * Todo:
-   *  Find the ancestors and move indeterminate sate. This should be a conditional
-   *  state as only if the node is unselected and the parent is selected.
+   *  Find the ancestors and move to indeterminate sate if necessary. This should
+   *  be a conditional state. I.e: if the parent node is selected and at least one
+   *  of its descendant is unselected it should move to this state. This should be
+   *  a bit process intensive as each ancestral node's descendant node needs to be
+   *  traversed.
    */
 
   const handleSelect: TTreeCheckboxChangeHandler<T> = (datum: T, checked) => {

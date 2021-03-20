@@ -1,5 +1,3 @@
-export const swallow = (..._props: unknown[]) => {};
-
 /**
  * Generates a label from a given ICategory object.
  *

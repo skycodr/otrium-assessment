@@ -33,7 +33,7 @@ const matcher = <T extends ITreeData>(data: T, facet: Partial<T>) => {
 };
 
 /**
- * A custom hook to manipulate object in a and array.
+ * A custom hook to manipulate object facets in an array.
  * Allows get/set properties of an ITreeData object
  *
  * @param {ITreeData[]} dataSource A flat array of ITreeData objects

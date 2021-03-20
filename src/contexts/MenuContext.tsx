@@ -3,6 +3,7 @@ import { useFacets } from "../hooks";
 
 import json from '../__data__/categories.json';
 
+// Context Object
 export const MenuContext = createContext<ITreeContext<ICategory>>({
   dataSource: [],
   getNodes: (_facet) => [],
@@ -10,6 +11,7 @@ export const MenuContext = createContext<ITreeContext<ICategory>>({
   commit: () => { }
 });
 
+// Context Provider
 const MenuContextProvider = ({ children }: IChildren) => {
   const [
     dataSource,
