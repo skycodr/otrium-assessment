@@ -1,1 +1,1 @@
-export {default as MenuContextProvider, MenuContext as TreeMenuContext } from './MenuContext';
+export {default as MenuContextProvider, MenuContext } from './MenuContext';

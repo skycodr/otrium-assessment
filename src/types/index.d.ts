@@ -52,6 +52,7 @@ interface IBranchProps<T extends ITreeData> extends ITreeProps<T> {
 }
 
 interface ILeafProps {
+  id: string,
   label: string;
   checked?: boolean;
   onChange?: TChangeEventHandler;

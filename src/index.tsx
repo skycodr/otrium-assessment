@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
-import MenuContext from './contexts/MenuContext';
+import { MenuContextProvider } from './contexts';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <MenuContext>
+    <MenuContextProvider>
       <App />
-    </MenuContext>
+    </MenuContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
