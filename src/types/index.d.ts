@@ -7,11 +7,6 @@ type TTreeCheckboxChangeHandler<T extends ITreeData> = (
 
 type TChangeEventHandler = React.ChangeEventHandler<HTMLInputElement>;
 
-type TUseTree<T extends ITreeData> = {
-  handleSelect: TTreeCheckboxChangeHandler;
-  toggleSelectAll: TFunction<boolean>;
-} & Pick<ITreeContext<T>, 'getNodes'>;
-
 interface IChildren {
   children: ReactNode | ReactNode[] | ReactElement;
 }
@@ -22,21 +17,19 @@ interface ITreeData {
   checked?: boolean;
 }
 
-interface ICategory extends ITreeData {
-  id: string;
-  count: number;
-  parent: string;
-  name: string;
-}
-
-// Tree context for the data to be bound to. The data type 'T'
-// should extend ITreeData
-interface ITreeContext<T extends ITreeData> {
+interface ITreeFacets<T extends ITreeData> {
   dataSource: T[];
-  getNodes: TFunction<Partial<T>, T[]>;
-  setNodes: (data: Partial<T>, value: Partial<T>) => T[];
+  getFacets: TFunction<Partial<T>, T[]>;
+  setFacets: (data: Partial<T>, value: Partial<T>) => T[];
+  removeFacets: TFunction<Partial<T>>;
   commit: TFunction;
 }
+
+type TUseTree<T extends ITreeData> = {
+  handleSelect: TTreeCheckboxChangeHandler;
+  handleDelete: TFunction;
+  toggleSelectAll: TFunction<boolean>;
+} & Pick<ITreeFacets<T>, 'getFacets'>;
 
 interface ITreeProps<T> {
   root: Partial<T>;
@@ -52,8 +45,15 @@ interface IBranchProps<T extends ITreeData> extends ITreeProps<T> {
 }
 
 interface ILeafProps {
-  id: string,
+  id: string;
   label: string;
   checked?: boolean;
   onChange?: TChangeEventHandler;
+}
+
+interface ICategory extends ITreeData {
+  id: string;
+  count: number;
+  parent: string;
+  name: string;
 }

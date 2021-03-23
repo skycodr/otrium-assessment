@@ -1,7 +1,8 @@
-import { Checkbox, FormControlLabel, Grid, makeStyles } from '@material-ui/core';
+import { Checkbox, FormControlLabel, Grid, IconButton, makeStyles } from '@material-ui/core';
+import { Delete } from '@material-ui/icons';
 import { useContext } from 'react';
 import { Leaf, Tree } from './components';
-import { MenuContext } from './contexts';
+import { TreeContext } from './contexts';
 import { useTree } from './hooks';
 import { getCategoryKey, getCategoryLabel, getCategoryChildFacet } from './utils';
 
@@ -12,13 +13,14 @@ const useTreeStyles = makeStyles({
   },
 });
 
-
 const App = () => {
-
   const styles = useTreeStyles();
-  const { getNodes, handleSelect, toggleSelectAll } = useTree<ICategory>(
-    useContext(MenuContext),
-    getCategoryChildFacet);
+  const {
+    getFacets,
+    handleSelect,
+    handleDelete,
+    toggleSelectAll
+  } = useTree<ICategory>(useContext(TreeContext), getCategoryChildFacet);
 
   /**
    * Special Note:
@@ -39,14 +41,23 @@ const App = () => {
       <Grid>
         <FormControlLabel
           label='Toggle select all'
-          control={<Checkbox data-testid='selectAll' onChange={(e) => toggleSelectAll(e.target.checked)} />} />
+          control={
+            <Checkbox
+              data-testid='selectAll'
+              onChange={(e) => toggleSelectAll(e.target.checked)}
+            />
+          }
+        />
+        <IconButton aria-label="delete" onClick={handleDelete}>
+          <Delete />
+        </IconButton>
       </Grid>
       <Grid>
         <Tree<ICategory>
           data-testid='treeMenu'
           className={styles.treeStyle}
           root={{ parent: '0' }}
-          sourceExtractor={getNodes}
+          sourceExtractor={getFacets}
           keyExtractor={getCategoryKey}
           rootExtractor={getCategoryChildFacet}
           // You may find branches are on the tree ;)

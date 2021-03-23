@@ -1,14 +1,14 @@
-import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 
 import App from '../App';
-import { MenuContextProvider } from '../contexts';
+import { TreeContextProvider } from '../contexts';
 
 describe('<Tree />', () => {
   beforeAll(() => {
     render(
-      <MenuContextProvider>
+      <TreeContextProvider>
         <App />
-      </MenuContextProvider>
+      </TreeContextProvider>
     );
   });
 
@@ -32,7 +32,7 @@ describe('<Tree />', () => {
   /*
    * Todo: 
    * Commenting as I am unable to wrap my head around as to how to
-   * access access the elements as everything I tried seem to throw
+   * access the elements as everything I tried seem to throw
    * errors.
    */
 

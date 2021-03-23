@@ -36,13 +36,11 @@ const matcher = <T extends ITreeData>(data: T, facet: Partial<T>) => {
  * A custom hook to manipulate object facets in an array.
  * Allows get/set properties of an ITreeData object
  *
- * @param {ITreeData[]} dataSource A flat array of ITreeData objects
- * @returns [source, getFacets, setFacets]
+ * @param {ITreeData[]} sourceData A flat array of ITreeData objects
+ * @returns {ITreeFacets}
  */
-const useFacets = <T extends ITreeData>(
-  dataSource: T[],
-): [T[], TFunction<Partial<T>, T[]>, TFunction<Partial<T>, T[]>, TFunction] => {
-  const [source, setSource] = useState<T[]>(dataSource);
+const useFacets = <T extends ITreeData>(sourceData: T[]): ITreeFacets<T> => {
+  const [dataSource, setSource] = useState<T[]>(sourceData);
   const commitSource = useRef<T[] | undefined>();
 
   /**
@@ -52,7 +50,9 @@ const useFacets = <T extends ITreeData>(
    * @returns
    */
   const getFacets = (facet: Partial<T>) =>
-    (commitSource.current ?? source).filter((data) => matcher<T>(data, facet));
+    (commitSource.current ?? dataSource).filter((data) =>
+      matcher<T>(data, facet),
+    );
 
   /**
    * Set properties of a given object for a given facet
@@ -71,7 +71,7 @@ const useFacets = <T extends ITreeData>(
     // needs to be updated.
     const updateAll = isEmpty(facet);
 
-    commitSource.current = (commitSource.current ?? source).map((value) => {
+    commitSource.current = (commitSource.current ?? dataSource).map((value) => {
       let node = { ...value };
       if (updateAll || matcher<T>(value, facet)) {
         node = { ...node, ...values };
@@ -82,6 +82,12 @@ const useFacets = <T extends ITreeData>(
     });
 
     return matchingSource;
+  };
+
+  const removeFacets = (facet: Partial<T>) => {
+    commitSource.current = (commitSource.current ?? dataSource).filter(
+      (value) => !matcher<T>(value, facet),
+    );
   };
 
   /**
@@ -96,7 +102,13 @@ const useFacets = <T extends ITreeData>(
     }
   };
 
-  return [source, getFacets, setFacets, commit];
+  return {
+    dataSource,
+    getFacets,
+    setFacets,
+    removeFacets,
+    commit,
+  };
 };
 
 export default useFacets;

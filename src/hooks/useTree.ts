@@ -7,15 +7,15 @@
  *  to deal with the necessities and have a wrapper to inject data so it is
  *  generic enough to handle all sort of scenarios.
  *
- * @param {ITreeContext} context ITreeContext object which is the data source
+ * @param {ITreeFacets} context ITreeFacets object which is the data source
  * @param childFacetExtractor
  * @returns
  */
 const useTree = <T extends ITreeData>(
-  context: ITreeContext<T>,
+  context: ITreeFacets<T>,
   childFacetExtractor: TFunction<T, Partial<T>>,
 ): TUseTree<T> => {
-  const { getNodes, setNodes, commit } = context;
+  const { getFacets, setFacets, removeFacets, commit } = context;
 
   /*
    * Handle checkbox change event. Create the value to set, update current node
@@ -33,26 +33,37 @@ const useTree = <T extends ITreeData>(
     const value = { checked } as Partial<T>;
 
     const setNodeSelection = (node: T) => {
-      setNodes(node, value);
-      setNodes(childFacetExtractor(node), value).forEach((childNode) =>
+      setFacets(node, value);
+      setFacets(childFacetExtractor(node), value).forEach((childNode) =>
         setNodeSelection(childNode),
       );
     };
 
     setNodeSelection(datum);
-
     commit();
   };
 
+  /*
+   * Handle toggle select all
+   */
   const toggleSelectAll = (checked: boolean) => {
-    setNodes({}, { checked } as Partial<T>);
+    setFacets({}, { checked } as Partial<T>);
+    commit();
+  };
+
+  /*
+   * Handle delete selected items
+   */
+  const handleDelete = () => {
+    removeFacets({ checked: true } as Partial<T>);
     commit();
   };
 
   return {
     handleSelect,
     toggleSelectAll,
-    getNodes,
+    handleDelete,
+    getFacets,
   };
 };
 
